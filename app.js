@@ -1,12 +1,23 @@
-//creating a node js server
-
 const http = require('http');
-const routes = require('./routes');
 
-//const fs = require('fs');
-const server = http.createServer(routes);
-    //console.log(req.method, req.headers, req.url);
-    // const url = req.url;
-    // const method = req.method;
+const express = require('express');
 
-server.listen(3005);
+const app = express();
+//adding middleware
+app.use((req, res, next) => {
+    console.log('in the middleware-1');
+    next();
+});
+
+app.use((req, res, next) => {
+    console.log('in the middleware-2');
+    next();
+});
+
+app.use((req, res, next) => {
+    console.log('in the middleware-3');
+    //sending response from here
+    //res.send('<h1>hello from express js!</h1>');
+    res.send( { "key1": "value" });
+}); 
+app.listen(3000);
